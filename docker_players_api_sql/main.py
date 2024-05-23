@@ -1,6 +1,7 @@
 from flask import Flask, json
 from flask_restful import Resource, Api, reqparse
 import db
+from db import session, Player
 import os
 
 app = Flask(__name__)
@@ -11,8 +12,8 @@ class players(Resource):
 
     def get(self):
 
-        results = db.session.query(db.Player).all()
-
+        results = session.query(Player).all()
+        session.close()
         return {'data': json.loads(str(results))}, 200
 
     def post(self):
@@ -27,15 +28,16 @@ class players(Resource):
                             type=int, location='args')
         args = parser.parse_args()
         try:
-            player = db.Player(
+            player = Player(
                 args['player_id'], args['playername'], args['rating'], args['number'])
-            db.session.add(player)
-            db.session.commit()
-            results = db.session.query(db.Player).all()
+            session.add(player)
+            session.commit()
+            results = session.query(Player).all()
+            session.close()
             return {'data': json.loads(str(results))}, 200
 
         except Exception as e:
-            db.session.rollback()
+            session.rollback()
             print(vars(e))
             return {"msg": str(e.orig)}, 409
 
@@ -52,29 +54,30 @@ class players(Resource):
         args = parser.parse_args()
 
         # need to check if the name exists first then update it
-        if db.session.query(db.Player).filter(
-                db.Player.player_id == args['player_id']).first():
+        if session.query(Player).filter(
+                Player.player_id == args['player_id']).first():
             try:
                 if args['playername']:
-                    db.session.query(db.Player).filter(db.Player.player_id == args['player_id']).update(
+                    session.query(Player).filter(Player.player_id == args['player_id']).update(
                         {'playername': args['playername']})
-                    db.session.commit()
+                    session.commit()
 
                 if args['rating']:
-                    db.session.query(db.Player).filter(db.Player.player_id == args['player_id']).update(
+                    session.query(Player).filter(Player.player_id == args['player_id']).update(
                         {'rating': args['rating']})
-                    db.session.commit()
+                    session.commit()
 
                 if args['number']:
-                    db.session.query(db.Player).filter(db.Player.player_id == args['player_id']).update(
+                    session.query(Player).filter(Player.player_id == args['player_id']).update(
                         {'number': args['number']})
-                    db.session.commit()
+                    session.commit()
 
-                results = db.session.query(db.Player).all()
+                results = session.query(Player).all()
+                session.close()
                 return {'data': json.loads(str(results))}, 200
 
             except Exception as e:
-                db.session.rollback()
+                session.rollback()
                 print(vars(e))
                 return {"msg": str(e)}, 409
                 # return {"msg": str(e.orig)}, 409
@@ -89,14 +92,15 @@ class players(Resource):
                             type=str, location='args')
         args = parser.parse_args()
 
-        if db.session.query(db.Player).filter(
-                db.Player.player_id == args['player_id']).first():
+        if session.query(Player).filter(
+                Player.player_id == args['player_id']).first():
 
-            db.session.query(db.Player).filter(
-                db.Player.player_id == args['player_id']).delete()
-            db.session.commit()
+            session.query(Player).filter(
+                Player.player_id == args['player_id']).delete()
+            session.commit()
 
-            results = db.session.query(db.Player).all()
+            results = session.query(Player).all()
+            session.close()
             return {'data': json.loads(str(results))}, 200
         else:
             return {
