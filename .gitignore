@@ -4,4 +4,5 @@ __pycache__
 terraform.tfstate*
 .env*
 .DS_Store
-virtual_env
+miscellaneous
+v_env
