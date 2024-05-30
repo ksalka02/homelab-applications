@@ -9,6 +9,7 @@ player_list = bball.player_list
 url = "https://api.balldontlie.io/v1"
 headers = {"Authorization": "ddb8c23a-fa7e-4d3d-8a1d-c69fe567a771"}
 
+
 def search_player(full_name):
 
     endpoint = "/players"
@@ -36,6 +37,7 @@ def search_player(full_name):
     }
     return player
 
+
 # def random_player():
 
 #     player, ppg = random.choice(list(player_list.items()))
@@ -45,7 +47,6 @@ def search_player(full_name):
 #     }
 
 #     return player
-
 
 
 # def random_player():
