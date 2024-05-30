@@ -35,6 +35,7 @@ def search_player(full_name):
         "team": player_stats["team"]["name"],
         "full_name": player_stats["first_name"] + " " + player_stats["last_name"],
     }
+
     return player
 
 
