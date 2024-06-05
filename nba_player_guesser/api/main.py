@@ -9,14 +9,15 @@ from datetime import timedelta
 import ballmonster_scrape as bms
 
 # client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
-client = redis.Redis(host='redis-nba-player-guesser-app-001.h8akni.0001.use1.cache.amazonaws.com', port=6379, db=0, decode_responses=True)
+client = redis.Redis(host='redis', port=6379, db=0, decode_responses=True)
+# client = redis.Redis(host='redis-nba-player-guesser-app-001.h8akni.0001.use1.cache.amazonaws.com', port=6379, db=0, decode_responses=True)
 # client = redis.Redis(host='userdata-nba-player-guesser-0001-001.h8akni.0001.use1.cache.amazonaws.com', port=6379, db=0, decode_responses=True)
 
 app = Flask(__name__)
 # api = Api(app)
 
 
-@app.route("/get_random_player")
+@app.route("/player/generate")
 def get_random_player():
     parser = reqparse.RequestParser()
     parser.add_argument('user_id', required=True,
@@ -60,7 +61,7 @@ def get_random_player():
     return response
 
 
-@app.route("/guess")
+@app.route("/player/guess")
 def guess():
     parser = reqparse.RequestParser()
     parser.add_argument('user_id', required=True,
@@ -186,7 +187,7 @@ def guess():
         }, 404
 
 
-@app.route("/score")
+@app.route("/user/score")
 def score():
     parser = reqparse.RequestParser()
     parser.add_argument('user_id', required=True,
@@ -209,7 +210,7 @@ def score():
         }, 404
 
 
-@app.route("/change", methods=["PUT"])
+@app.route("/user/update", methods=["PUT"])
 def put():
     parser = reqparse.RequestParser()
     parser.add_argument('user_id', required=True,
@@ -237,7 +238,7 @@ def put():
         }, 404
 
 
-@app.route("/delete", methods=["DELETE"])
+@app.route("/user/delete", methods=["DELETE"])
 def delete():
     parser = reqparse.RequestParser()
     parser.add_argument('user_id', required=True,

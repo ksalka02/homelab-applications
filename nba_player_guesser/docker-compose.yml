@@ -1,0 +1,12 @@
+services:
+  nba-player-guesser:
+    image: 939365853055.dkr.ecr.us-east-1.amazonaws.com/nba-player-guesser-api:master
+    depends_on:
+      - redis
+    volumes:
+      - ./nba-player-guesser:/usr/src/app
+    ports:
+      - 5000:$PORT # (docker port to open up):(port on app)
+  redis:
+    image: redis:7.0.15-alpine
+# docker compose creates a virtual network for all containers so by default each container can access all the others defined in the compose file and their host name match their service name
