@@ -261,7 +261,7 @@ def delete():
             'message': f"Player with user_id: '{args['user_id']}' does not exist!"
         }, 404
 
-port = os.environ["env_PORT"]
+port = os.environ["PORT"]
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', debug=True, port=8080)
