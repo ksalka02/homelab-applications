@@ -7,6 +7,7 @@ import db
 from db import session, Player
 from datetime import timedelta
 import ballmonster_scrape as bms
+import os
 
 # client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
 client = redis.Redis(host='redis', port=6379, db=0, decode_responses=True)
@@ -260,6 +261,8 @@ def delete():
             'message': f"Player with user_id: '{args['user_id']}' does not exist!"
         }, 404
 
+port = os.environ["env_PORT"]
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True, port=8080)
+    # app.run(host='0.0.0.0', debug=True, port=8080)
+    app.run(host='0.0.0.0', debug=True, port=port)
