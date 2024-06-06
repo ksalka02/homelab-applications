@@ -1,6 +1,7 @@
 services:
   nba-player-guesser:
     image: 939365853055.dkr.ecr.us-east-1.amazonaws.com/nba-player-guesser-api:master
+    pull_policy: always
     # build: ./api #for local run
     user: root
     depends_on:
