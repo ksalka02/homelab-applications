@@ -264,7 +264,7 @@ def delete():
         }, 404
 
 
-port = os.environ["ud_PORT"]
+port = os.environ["PORT"]
 # port = os.getenv("ud_PORT")
 
 if __name__ == "__main__":
