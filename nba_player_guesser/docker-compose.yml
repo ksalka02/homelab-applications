@@ -6,8 +6,8 @@ services:
     user: root
     depends_on:
       - redis
-    volumes:
-      - ~/.aws:/root/.aws #for boto3 to access aws creds locally
+    # volumes:
+    #   - ~/.aws:/root/.aws #for boto3 to access aws creds locally
     ports:
       # - 8080:8080 # (docker port to open up):(port on app) locally
       - $PORT:$PORT # (docker port to open up):(port on app)
