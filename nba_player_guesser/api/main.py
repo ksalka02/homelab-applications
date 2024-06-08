@@ -9,11 +9,12 @@ from datetime import timedelta
 import ballmonster_scrape as bms
 
 import os
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 # client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)  # To connect to redis locally
-client = redis.Redis(host='redis', port=6379, db=0, decode_responses=True) # To connect to redis container in docker-compose
+# To connect to redis container in docker-compose
+client = redis.Redis(host='redis', port=6379, db=0, decode_responses=True)
 # client = redis.Redis(host='redis-nba-player-guesser-app-001.h8akni.0001.use1.cache.amazonaws.com', port=6379, db=0, decode_responses=True) # to connect with AWS ElastiCache
 
 app = Flask(__name__)
@@ -263,8 +264,8 @@ def delete():
         }, 404
 
 
-# port = os.environ["PORT"]
-port = os.getenv("ud_PORT")
+port = os.environ["ud_PORT"]
+# port = os.getenv("ud_PORT")
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', debug=True, port=8080)
