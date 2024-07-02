@@ -1,6 +1,6 @@
 import boto3
 
-
+# boto3.setup_default_session(profile_name='iamadmin')
 client = boto3.client('ssm', region_name='us-east-1')
 
 password = client.get_parameter(
